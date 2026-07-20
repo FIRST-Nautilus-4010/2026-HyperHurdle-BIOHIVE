@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Intake.IntakeIO;
 import org.firstinspires.ftc.teamcode.Subsystems.Lift.LiftIO;
 
 public class StopLift implements Action {

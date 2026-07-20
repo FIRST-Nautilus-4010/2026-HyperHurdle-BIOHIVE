@@ -22,7 +22,7 @@ public class Lower implements Action {
     public boolean run(@NonNull TelemetryPacket packet) {
 
         if (!initialized) {
-            liftIO.setLiftPosition((int)Constants.LIFT_DOWN);
+            liftIO.setLiftPosition(Constants.LIFT_DOWN);
             initialized = true;
 
         }

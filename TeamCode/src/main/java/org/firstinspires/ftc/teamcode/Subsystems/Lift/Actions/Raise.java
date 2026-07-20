@@ -22,7 +22,7 @@ public class Raise implements Action {
     public boolean run(@NonNull TelemetryPacket packet) {
 
         if (!initialized) {
-            liftIO.setLiftPosition((int)Constants.LIFT_UP);
+            liftIO.setLiftPosition(Constants.LIFT_UP);
             initialized = true;
         }
 
