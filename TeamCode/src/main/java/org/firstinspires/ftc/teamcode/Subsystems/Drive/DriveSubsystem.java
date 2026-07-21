@@ -33,20 +33,19 @@ public class DriveSubsystem {
         double maxSpeed = centerOfGravityHigh ? Constants.SLOW_SPEED : Constants.DEFAULT_SPEED;
         double maxAccel = centerOfGravityHigh ? Constants.SLOW_ACCEL : Constants.DEFAULT_ACCEL;
 
-        desiredSpeed = Math.hypot(x,y);
-        desiredAccel = maxAccel;
-
         PoseVelocity2d targetVelocity = new PoseVelocity2d(
                 new Vector2d(x * maxSpeed, y * maxSpeed),
                 rx * maxSpeed
         );
 
-        PoseVelocity2d safeVelocity = driveLimiter.limit(targetVelocity, maxAccel);
-        detectedSpeed = Math.hypot(safeVelocity.linearVel.x, safeVelocity.linearVel.y);
+        desiredSpeed = Math.hypot(targetVelocity.linearVel.x, targetVelocity.linearVel.y);
         desiredAccel = maxAccel;
 
-        mecanumDrive.setDrivePowers(safeVelocity);
+        PoseVelocity2d safeVelocity = driveLimiter.limit(targetVelocity, maxAccel);
 
+        detectedSpeed = Math.hypot(safeVelocity.linearVel.x, safeVelocity.linearVel.y);
+
+        mecanumDrive.setDrivePowers(safeVelocity);
     }
 
     public double getDesiredSpeed(){ return desiredSpeed; }

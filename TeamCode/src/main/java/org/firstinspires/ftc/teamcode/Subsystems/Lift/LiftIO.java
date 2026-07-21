@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems.Lift;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
@@ -20,7 +21,7 @@ public class LiftIO {
         rightMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         leftMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
-        rightMotor.setDirection(DcMotorEx.Direction.FORWARD);
+        rightMotor.setDirection(DcMotorEx.Direction.REVERSE);
         leftMotor.setDirection(DcMotorEx.Direction.REVERSE);
 
         PIDFCoefficients pidf = new PIDFCoefficients(Constants.LIFT_P, Constants.LIFT_I, Constants.LIFT_D, 0);
