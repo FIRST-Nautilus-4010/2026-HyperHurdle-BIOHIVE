@@ -66,7 +66,8 @@ public class SubsystemManager {
                     );
                     break;
                 case RAISE:
-                    runningAction = lift.raise();
+                    runningAction = new ParallelAction(lift.raise(), intake.stop());
+
                     break;
                 case DROP:
                     runningAction = new SequentialAction(

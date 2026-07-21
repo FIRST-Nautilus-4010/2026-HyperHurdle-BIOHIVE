@@ -20,12 +20,12 @@ public class TeleOpTesting extends OpMode {
     private LiftSubsystem lift;
     private TelemetryGlobal globalTelemetry;
 
-    private boolean lastA = false;
-    private boolean lastB = false;
-    private boolean lastX = false;
-    private boolean lastLB = false;
-    private boolean lastRB = false;
+    private boolean lastA1 = false;
+    private boolean lastB1 = false;
+    private boolean lastX1 = false;
+    private boolean lastY1 = false;
     private boolean lastY2 = false;
+
 
     @Override
     public void init() {
@@ -60,34 +60,31 @@ public class TeleOpTesting extends OpMode {
 
         drive.update();
 
-        if (gamepad1.dpad_down) {
+        if (gamepad1.dpad_up) {
             drive.mecanumDrive.localizer.setPose(new Pose2d(0, 0, 0));
         }
 
-        boolean currentA = gamepad1.a;
-        boolean currentB = gamepad1.b;
-        boolean currentX = gamepad1.x;
-        boolean currentLB = gamepad1.left_bumper;
-        boolean currentRB = gamepad1.right_bumper;
+        boolean currentA1 = gamepad1.a;
+        boolean currentB1 = gamepad1.b;
+        boolean currentX1 = gamepad1.x;
+        boolean currentY1 = gamepad1.y;
 
-        if (currentA && !lastA) subsystemManager.setStates(States.INTAKE);
-        if (currentX && !lastX) subsystemManager.setStates(States.STOP);
-        if (currentB && !lastB) subsystemManager.setStates(States.DROP);
-        if (currentLB && !lastLB) subsystemManager.setStates(States.TRAVEL);
-        if (currentRB && !lastRB) subsystemManager.setStates(States.RAISE);
+        if (currentA1 && !lastA1) subsystemManager.setStates(States.INTAKE);
+        if (currentX1 && !lastX1) subsystemManager.setStates(States.STOP);
+        if (currentB1 && !lastB1) subsystemManager.setStates(States.DROP);
+        if (currentY1 && !lastY1) subsystemManager.setStates(States.RAISE);
 
-        lastA = currentA;
-        lastB = currentB;
-        lastX = currentX;
-        lastLB = currentLB;
-        lastRB = currentRB;
+        lastA1 = currentA1;
+        lastB1 = currentB1;
+        lastX1 = currentX1;
+        lastY1 = currentY1;
 
         double manualLiftPower = -gamepad2.left_stick_y;
         double manualIntakeIn = gamepad2.left_trigger;
         double manualIntakeOut = gamepad2.right_trigger;
         boolean currentY2 = gamepad2.y;
 
-        if (Math.abs(manualLiftPower) > 0.05 || manualIntakeIn > 0.05 || manualIntakeOut > 0.05) {
+        if (Math.abs(manualLiftPower) > 0.1 || manualIntakeIn > 0.5 || manualIntakeOut > 0.5) {
 
             subsystemManager.setStates(States.STOP);
 
@@ -103,13 +100,13 @@ public class TeleOpTesting extends OpMode {
         }
 
         if (currentY2 && !lastY2) {
-
+            lift.io.resetEncoders();
         }
         lastY2 = currentY2;
 
         globalTelemetry.telemetryForDriverStation(subsystemManager, intake, lift, drive);
         globalTelemetry.telemetryForDashboard(subsystemManager, intake, lift, drive);
-        globalTelemetry.telemetryForAdvantage(subsystemManager, intake, lift, drive);
+//        globalTelemetry.telemetryForAdvantage(subsystemManager, intake, lift, drive);
 
         globalTelemetry.update();
     }

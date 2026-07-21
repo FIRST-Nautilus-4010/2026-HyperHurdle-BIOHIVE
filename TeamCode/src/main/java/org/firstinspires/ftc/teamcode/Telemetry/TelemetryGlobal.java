@@ -58,7 +58,18 @@ public class TelemetryGlobal {
         packet.put("Intake Detected Velocity", intake.getIntakeVelRpm());
         packet.put("Intake Error", intake.getIntakeVelRpm() - intake.getTargetVelocityRpm());
 
-        packet.put("Target Speed", drive.getDesiredSpeed());
+        packet.put("Desired Speed", drive.getDesiredSpeed());
+        packet.put("Detecdeted Speed", drive.getDetectedSpeed());
+        packet.put("Error", drive.getDesiredSpeed() - drive.getDetectedSpeed());
+
+        packet.put("Desired Accel", drive.getDesiredAccel());
+        packet.put("Detected Accel", drive.getDetectedAccel());
+        packet.put("Error", drive.getDesiredAccel() - drive.getDetectedAccel());
+
+        packet.put("Pos X (pulgadas)", drive.mecanumDrive.localizer.getPose().position.x);
+        packet.put("Pos Y (pulgadas)", drive.mecanumDrive.localizer.getPose().position.y);
+
+        packet.put("Center of Gravity High", manager.centerOfGravityHigh());
     }
 
     public void telemetryForAdvantage(

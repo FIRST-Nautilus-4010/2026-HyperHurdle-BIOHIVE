@@ -25,8 +25,8 @@ public class LiftIO {
 
         PIDFCoefficients pidf = new PIDFCoefficients(Constants.LIFT_P, Constants.LIFT_I, Constants.LIFT_D, 0);
 
-        rightMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidf);
-        leftMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidf);
+        rightMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, pidf);
+        leftMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, pidf);
 
         resetEncoders();
 
@@ -56,9 +56,9 @@ public class LiftIO {
     }
 
     public void setLiftPwr(double power) {
-        if (rightMotor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {
-            rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (rightMotor.getMode() != DcMotor.RunMode.RUN_WITHOUT_ENCODER) {
+            rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
 
         rightMotor.setPower(power);

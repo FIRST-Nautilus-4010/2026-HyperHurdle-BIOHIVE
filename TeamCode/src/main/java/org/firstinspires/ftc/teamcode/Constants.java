@@ -17,9 +17,9 @@ public class Constants {
     public static double LIFT_UP = 0;
 
 
-    public static double LIFT_P = 0;
-    public static double LIFT_I = 0;
-    public static double LIFT_D = 0;
+    public static double LIFT_P = 0.1;
+    public static double LIFT_I = 0.00001;
+    public static double LIFT_D = 0.01;
 
 
     public static double DEFAULT_SPEED = 0;
