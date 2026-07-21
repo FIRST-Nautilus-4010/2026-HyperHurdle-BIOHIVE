@@ -25,8 +25,9 @@ public class LiftIO {
 
         PIDFCoefficients pidf = new PIDFCoefficients(Constants.LIFT_P, Constants.LIFT_I, Constants.LIFT_D, 0);
 
-        rightMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, pidf);
-        leftMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, pidf);
+        // ¡Corregido! De vuelta a RUN_USING_ENCODER para evitar el crasheo del SDK
+        rightMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidf);
+        leftMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidf);
 
         resetEncoders();
 
