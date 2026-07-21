@@ -14,11 +14,13 @@ public class TelemetryGlobal {
     private TelemetryPacket packet;
     private final FtcDashboard dashboard;
     private final Telemetry dsTelemetry;
+    private FyleHyperHurdle fyleHyperHurdle;
 
     public TelemetryGlobal(Telemetry dsTelemetry) {
         this.dsTelemetry = dsTelemetry;
         this.dashboard = FtcDashboard.getInstance();
         this.packet = new TelemetryPacket();
+        this.fyleHyperHurdle = new FyleHyperHurdle();
 
 
     }
@@ -50,6 +52,12 @@ public class TelemetryGlobal {
             LiftSubsystem lift,
             DriveSubsystem drive){
 
+        double robotX = drive.mecanumDrive.localizer.getPose().position.x;
+        double robotY = drive.mecanumDrive.localizer.getPose().position.y;
+
+        fyleHyperHurdle.drawField(packet, robotX, robotY);
+
+
         packet.put("Lift Desired Position", lift.getTargetPositionRadians());
         packet.put("Lift Detected Position", lift.getLiftPositionRadians());
         packet.put("Lift Error", lift.getLiftPositionRadians() - lift.getTargetPositionRadians());
@@ -66,8 +74,8 @@ public class TelemetryGlobal {
         packet.put("Detected Accel", drive.getDetectedAccel());
         packet.put("Error Accel", drive.getDesiredAccel() - drive.getDetectedAccel());
 
-        packet.put("Pos X (pulgadas)", drive.mecanumDrive.localizer.getPose().position.x);
-        packet.put("Pos Y (pulgadas)", drive.mecanumDrive.localizer.getPose().position.y);
+        packet.put("Pos X (pulgadas)", robotX);
+        packet.put("Pos Y (pulgadas)", robotY);
 
         packet.put("Center of Gravity High", manager.centerOfGravityHigh());
     }
